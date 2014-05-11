@@ -5,7 +5,7 @@
  * 
  */
 
-THREE.SoftBlendShader = {
+THREE.EdgeBlendingShader = {
 
 	uniforms: {
 		"BlendPower":    		{ type: "f", value: 0.9 },

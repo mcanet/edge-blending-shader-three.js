@@ -84,7 +84,7 @@
 
 
 		<script src="js/shaders/CopyShader.js"></script>
-		<script src="js/shaders/EdgeBlendingShader.js"></script>
+		<script src="../EdgeBlendingShader.js"></script>
 
 		<script src="js/postprocessing/EffectComposer.js"></script>
 		<script src="js/postprocessing/RenderPass.js"></script>
@@ -112,8 +112,8 @@
 
 				apps.push( new App( 'container1', fullWidth, fullHeight, w * 0, h * 0, w, h ) );
 				apps.push( new App( 'container2', fullWidth, fullHeight, w * (1.0-overlappingScreens), h * 0, w, h ) );
-				apps.push( new App( 'container3', fullWidth, fullHeight, w * 0, h * 1, w, h ) );
-				apps.push( new App( 'container4', fullWidth, fullHeight, w * (1.0-overlappingScreens), h * 1, w, h ) );
+				apps.push( new App( 'container3', fullWidth, fullHeight, w * 0, h * (1.0-overlappingScreens), w, h ) );
+				apps.push( new App( 'container4', fullWidth, fullHeight, w * (1.0-overlappingScreens), h * (1.0-overlappingScreens), w, h ) );
 
 			}
 
@@ -279,14 +279,22 @@
 
 					var effect = new THREE.ShaderPass( THREE.EdgeBlendingShader ); 
 					
-					if(containerId=='container1' || containerId=='container3' ){
+					if(containerId=='container1' ){
 						effect.uniforms[ 'OverlapRight' ].value = 0.2;
+						effect.uniforms[ 'OverlapBottom' ].value = 0.2;
 					}
-					if(containerId=='container2' || containerId=='container4'){
+					if(containerId=='container3' ){
+						effect.uniforms[ 'OverlapRight' ].value = 0.2;
+						effect.uniforms[ 'OverlapTop' ].value = 0.2;
+					}
+					if(containerId=='container2'){
 						effect.uniforms[ 'OverlapLeft' ].value = 0.2;
+						effect.uniforms[ 'OverlapBottom' ].value = 0.2;
 					}
-
-					effect.uniforms[ 'BlendPower' ].value = 0.6;
+					if(containerId=='container4'){
+						effect.uniforms[ 'OverlapLeft' ].value = 0.2;
+						effect.uniforms[ 'OverlapTop' ].value = 0.2;
+					}					effect.uniforms[ 'BlendPower' ].value = 0.6;
 					effect.uniforms[ 'BlendPower2' ].value = 0.6;
 					effect.uniforms[ 'SolidEdgeColor' ].value = new THREE.Vector4( 1.0, 1.0,1.0,0 );
 
